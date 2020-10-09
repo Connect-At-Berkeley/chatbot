@@ -1,4 +1,4 @@
-import train_chatbot
+# import train_chatbot
 
 from flask import Flask, render_template, request
 
@@ -9,10 +9,10 @@ app.static_folder = 'static'
 def home():
     return render_template("index.html")
 
-@app.route("/get")
-def get_bot_response():
-    userText = request.args.get('msg')
-    return str(train_chatbot.chatbot_response(userText))
+# @app.route("/get")
+# def get_bot_response():
+#     userText = request.args.get('msg')
+#     return str(train_chatbot.chatbot_response(userText))
 
 
 if __name__ == "__main__":

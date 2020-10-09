@@ -10,6 +10,7 @@
   <!-- <link rel="stylesheet" src="static/styles/style.css"> -->
   <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/styles.css') }}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -17,7 +18,9 @@
   <section class="msger">
     <header class="msger-header">
       <div class="msger-header-title">
-      <h1> Connect@Cal General Cases Chatbot </h1>
+      <br>
+      <h1 style="font-family: 'Quicksand', sans-serif;"> Connect@Cal General Cases Chatbot </h1>
+      <br>
       </div>
     </header>
 
@@ -27,9 +30,9 @@
 
         <div class="msg-bubble">
           <div class="msg-info">
-            <div class="msg-info-name">Connect@Cal</div>
-            <!-- <div class="msg-info-time">12:45</div> -->
-          </div>
+            <div  class="msg-info-name">Connect@Cal</div>
+           
+          </div> 
 
           <div class="msg-text">
             <p>Hi! 👋 We're Connect@Cal, the one stop service to connect you to the most relevant resources, programs, and opportunities! </p>
@@ -42,8 +45,9 @@
     </main>
 
     <form class="msger-inputarea">
-      <input type="text" class="msger-input" id="textInput" placeholder="Enter your message...">
-      <button type="submit" class="msger-send-btn">Send</button>
+      <input type="text" style="font-family: 'Quicksand', sans-serif; outline-color: #056BA5;" class="msger-input" id="textInput" placeholder="Please write a reply...">
+      <button style="font-family: 'Quicksand', sans-serif;" type="submit" class="msger-send-btn">Send</button>
+   
     </form>
   </section>
   <!-- partial -->
@@ -57,7 +61,7 @@
 
    
     const BOT_IMG = "https://i.ibb.co/TKjfK1y/Group-8.png";
-    const PERSON_IMG = "";
+    const PERSON_IMG = "https://i.ibb.co/z7mrNQD/user-icon.png";
     const BOT_NAME = "Connect@Cal";
     const PERSON_NAME = "You";
     msgerForm.addEventListener("submit", event => {
@@ -77,10 +81,10 @@
 <div class="msg ${side}-msg">
   <div class="msg-img" style="background-image: url(${img})"></div>
 
-  <div class="msg-bubble">
+  <div style="color:#056BA5; background-color:#F0F0F0;" class="msg-bubble">
     <div class="msg-info">
       <div class="msg-info-name">${name}</div>
-      <div class="msg-info-time">${formatDate(new Date())}</div>
+      
     </div>
 
     <div class="msg-text">${text}</div>
@@ -111,12 +115,12 @@
       return root.querySelector(selector);
     }
 
-    function formatDate(date) {
-      const h = "0" + date.getHours();
-      const m = "0" + date.getMinutes();
+    // function formatDate(date) {
+    //   const h = "0" + date.getHours();
+    //   const m = "0" + date.getMinutes();
 
-      return `${h.slice(-2)}:${m.slice(-2)}`;
-    }
+    //   return `${h.slice(-2)}:${m.slice(-2)}`;
+    // }
 
 
 
