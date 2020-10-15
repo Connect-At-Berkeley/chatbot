@@ -158,7 +158,7 @@
         "patterns": ["social", "social group", "community", "friends"],
         "responses": ["Do you want to join Greek life, an identity based club, or a sport?"],
         "context": ["greek_life", "identity_based"]
-        },
+        }
 
    ]
 }

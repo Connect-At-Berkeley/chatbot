@@ -120,7 +120,7 @@ body {
 .right-msg .msg-bubble {
   /* background: var(--right-msg-bg); */
   /* color: #fff; */
-  color: black;
+  /* color: black; */
   border-bottom-right-radius: 0;
   font-family: 'Quicksand', sans-serif;
 }
@@ -148,7 +148,7 @@ ul {
   background: white;
 }
 :focus {
-  outline-color: red !important; 
+  outline-color: #056BA5!important; 
 }
 .msger-send-btn {
   margin-left: 10px;
