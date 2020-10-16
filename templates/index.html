@@ -86,6 +86,19 @@
   });
 
     
+  function appendButton(name) {
+      //   Simple solution for small apps
+      const msgHTML = `
+      <button onclick="sendMessage(${name})" margin-left: 70px; style=" border-radius: 5px; padding: 10px; font-family: 'Quicksand', sans-serif;" class="msger-send-btn"> ${name}</button>
+`;
+      console.log("appended button")
+    
+
+
+      msgerChat.insertAdjacentHTML("beforeend", msgHTML);
+      msgerChat.scrollTop += 500;
+      console.log("appended button2")
+    }
 
     function appendMessage(name, img, side, text) {
       //   Simple solution for small apps
@@ -103,7 +116,28 @@
   </div>
 </div>
 `;
+    
 
+
+      msgerChat.insertAdjacentHTML("beforeend", msgHTML);
+      msgerChat.scrollTop += 500;
+    }
+    function appendMessageChat(name, img, side, text) {
+      //   Simple solution for small apps
+      const msgHTML = `
+<div class="msg ${side}-msg">
+  <div class="msg-img" style="background-image: url(${img})"></div>
+
+  <div style="color:black; background-color:white;" class="msg-bubble">
+    <div class="msg-info">
+      <div class="msg-info-name">${name}</div>
+      
+    </div>
+
+    <div class="msg-text">${text}</div>
+  </div>
+</div>
+`;
       msgerChat.insertAdjacentHTML("beforeend", msgHTML);
       msgerChat.scrollTop += 500;
     }
@@ -115,11 +149,24 @@
         console.log(rawText);
         console.log(data);
         const msgText = data;
-        appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
-
+        if (msgText == "Let’s start with getting to know you a little bit better! Which group do you fall in? 🎓"){
+          appendMessageChat(BOT_NAME, BOT_IMG, "left", msgText);
+          appendButton("HELP ME");
+          console.log("after append button")
+          // console.log("IT WORKED")
+          // let button = document.createElement('button');          // CREATE THE BUTTON.
+          // let bText = document.createTextNode('Click to get help');          // CREATE TEXT FOR THE BUTTON
+          // button.appendChild(bText);  
+          // button.setAttribute('onclick', "sendMessage('help')"); 
+          // document.body.appendChild(button);   
+        }
+        else{
+        appendMessageChat(BOT_NAME, BOT_IMG, "left", msgText);
+        }
       });
 
     }
+    
 
 
     // Utils
