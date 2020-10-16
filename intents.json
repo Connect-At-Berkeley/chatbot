@@ -4,6 +4,16 @@
          "responses": ["Hello!", "Good to see you!", "Hi there, how can I help?"],
          "context": [""]
         },
+        {"tag": "start",
+        "patterns": ["I am ready to get connected!"],
+        "responses": ["Let’s start with getting to know you a little bit better! Which group do you fall in? 🎓"],
+        "context": [""]
+        },
+        {"tag": "demographic",
+        "patterns": ["Undergraduate", "Graduate", "Staff"],
+        "responses": ["Great! What resources are you looking for?"],
+        "context": [""]
+        },
         {"tag": "goodbye",
          "patterns": ["Bye", "See you later", "Goodbye", "Nice chatting to you, bye", "Till next time"],
          "responses": ["See you!", "Have a nice day", "Bye! Come back again soon."],
