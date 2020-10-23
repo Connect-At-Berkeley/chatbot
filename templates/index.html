@@ -68,6 +68,7 @@
     
     function sendMessage(message)
     {
+      console.log("MESSAGE PASSED")
       const msgText = message;
       appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
       msgerInput.value = "";
@@ -86,10 +87,10 @@
   });
 
     
-  function appendButton(name) {
+  function appendButton(msg, buttonName) {
       //   Simple solution for small apps
-      const msgHTML = `
-      <button onclick="sendMessage(${name})" margin-left: 70px; style=" border-radius: 5px; padding: 10px; font-family: 'Quicksand', sans-serif;" class="msger-send-btn"> ${name}</button>
+      const msgHTML = ` 
+      <button onclick="sendMessage(${msg})" margin-left: 1000px; style=" border-radius: 5px; padding: 10px; font-family: 'Quicksand', sans-serif;" class="msger-send-btn"> ${buttonName}</button>
 `;
       console.log("appended button")
     
@@ -151,14 +152,9 @@
         const msgText = data;
         if (msgText == "Let’s start with getting to know you a little bit better! Which group do you fall in? 🎓"){
           appendMessageChat(BOT_NAME, BOT_IMG, "left", msgText);
-          appendButton("HELP ME");
+          appendButton("'help me please'", "Help Me");
           console.log("after append button")
-          // console.log("IT WORKED")
-          // let button = document.createElement('button');          // CREATE THE BUTTON.
-          // let bText = document.createTextNode('Click to get help');          // CREATE TEXT FOR THE BUTTON
-          // button.appendChild(bText);  
-          // button.setAttribute('onclick', "sendMessage('help')"); 
-          // document.body.appendChild(button);   
+          
         }
         else{
         appendMessageChat(BOT_NAME, BOT_IMG, "left", msgText);

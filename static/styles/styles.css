@@ -158,6 +158,14 @@ ul {
   cursor: pointer;
   transition: background 0.23s;
 }
+.msger-send-btn2{
+  margin-left: 60px;
+  background: #056BA5;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.23s;
+}
 .msger-send-btn:hover {
   background: #044a72 ;
 }
