@@ -189,6 +189,8 @@ def chatbot_response(msg):
     res = getResponse(ints, intents)
     return res
 
+# create function that gets links
+
 ####### CHATTERBOT API STUFF #######
 # from chatterbot import ChatBot
 #
