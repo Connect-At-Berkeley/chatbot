@@ -173,21 +173,50 @@ def predict_class(sentence, model):
         return_list.append({"intent": classes[r[0]], "probability": str(r[1])})
     return return_list
 
-def getResponse(ints, intents_json):
-    print("getResponse")
-    tag = ints[0]['intent']
-    list_of_intents = intents_json['intents']
-    for i in list_of_intents:
-        if(i['tag']== tag):
-            result = random.choice(i['responses'])
-            break
-    return result
+#def getResponse(ints, intents_json):
+#    print("getResponse")
+#    tag = ints[0]['intent']
+#    list_of_intents = intents_json['intents']
+#    for i in list_of_intents:
+#        if(i['tag']== tag):
+#            result = random.choice(i['responses'])
+#            break
+#    return result
 
 def chatbot_response(msg):
     print("chatbot_response")
     ints = predict_class(msg, model)
     res = getResponse(ints, intents)
     return res
+
+def links(ints, intents_json):
+    print("link")
+    tag = ints[0]['intent']
+    list_of_intents = intents_json['intents']
+    for i in list_of_intents:
+        if(i['tag']== tag):
+            result = i['links']
+            break
+    return result
+def getResponse(ints, intents_json):
+    print("getResponse")
+    tag = ints[0]['intent']
+    list_of_intents = intents_json['intents']
+    for i in list_of_intents:
+        if(i['tag']== tag):
+            resources = i['responses']
+            break
+    links = links(ints, intents_json)
+    result = []
+    count = 0
+    for i in range(len(resources)):
+        if i % 2 == 0:
+            result[i] = resources[count]
+        else:
+            result[i] = links[count]
+            count += 1
+    return result
+
 
 # create function that gets links
 

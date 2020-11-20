@@ -11,6 +11,7 @@
   <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/styles.css') }}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap" rel="stylesheet">
+  <!--script type="text/javascript" src="intents.json"></script-->
 </head>
 
 <body>
@@ -55,6 +56,7 @@
   <script src='https://use.fontawesome.com/releases/v5.0.13/js/all.js'></script>
   <script>
     
+    
     const msgerForm = get(".msger-inputarea");
     const msgerInput = get(".msger-input");
     const msgerChat = get(".msger-chat");
@@ -65,10 +67,21 @@
     const PERSON_IMG = "https://i.ibb.co/z7mrNQD/user-icon.png";
     const BOT_NAME = "Connect@Cal";
     const PERSON_NAME = "You";
+
+    $.getJSON("../static/intents.json", function(data)
+      {
+        for (var i = 0; i<data["intents"].length; i++)
+        {
+          if(typeof data["intents"][i].links !== 'undefined'){
+            console.log(data["intents"][i].links);
+          }
+        }
+      });
+    
     
     function sendMessage(message)
     {
-      console.log("MESSAGE PASSED")
+      
       const msgText = message;
       appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
       msgerInput.value = "";
@@ -114,6 +127,29 @@
     </div>
 
     <div class="msg-text">${text}</div>
+
+  </div>
+</div>
+`;
+    
+    
+
+      msgerChat.insertAdjacentHTML("beforeend", msgHTML);
+      msgerChat.scrollTop += 500;
+    }
+    /*function appendLinks(name, img, side, text) {
+      //   Simple solution for small apps
+      const msgHTML = `
+<div class="msg ${side}-msg">
+  <div class="msg-img" style="background-image: url(${img})"></div>
+
+  <div style="color:#056BA5; background-color:#F0F0F0;" class="msg-bubble">
+    <div class="msg-info">
+      <div class="msg-info-name">${name}</div>
+      
+    </div>
+
+    <div class="msg-text">${text}</div>
   </div>
 </div>
 `;
@@ -122,7 +158,7 @@
 
       msgerChat.insertAdjacentHTML("beforeend", msgHTML);
       msgerChat.scrollTop += 500;
-    }
+    }*/
     function appendMessageChat(name, img, side, text) {
       //   Simple solution for small apps
       const msgHTML = `
@@ -157,6 +193,7 @@
           
         }
         else{
+        
         appendMessageChat(BOT_NAME, BOT_IMG, "left", msgText);
         }
       });
