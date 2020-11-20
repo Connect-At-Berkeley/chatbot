@@ -38,6 +38,7 @@
             <p>Hi! 👋 We're Connect@Cal, the one stop service to connect you to the most relevant resources, programs, and opportunities! </p>
             <br>
             <button onclick="sendMessage('I am ready to get connected!')" style="margin-left: 0px; border-radius: 5px; padding: 10px; font-family: 'Quicksand', sans-serif;" class="msger-send-btn"> I am ready to get connected!</button>
+            <button onclick="printLinks('Links')" style="margin-left: 0px; border-radius: 5px; padding: 10px; font-family: 'Quicksand', sans-serif;" class="msger-send-btn"> Press for links</button>
           </div>
 
         </div>
@@ -77,6 +78,55 @@
           }
         }
       });
+
+    function printLinks(msg)
+    {
+      var finalMessage = "";
+      /*const msgHTML = ` 
+      <button onclick="sendMessage(${msg})" margin-left: 1000px; style=" border-radius: 5px; padding: 10px; font-family: 'Quicksand', sans-serif;" class="msger-send-btn"> Links </button>
+      ` ;*/
+      $.getJSON("../static/intents.json", function(data)
+      {
+        for (var i = 0; i<data["intents"].length; i++)
+        {
+          if(typeof data["intents"][i].links !== 'undefined'){
+            for (var j = 0; j<data["intents"][i].links.length; j++)
+            {
+              finalMessage += "<a href = " + data["intents"][i].links[j] +">" + data["intents"][i].responses[j] +"</a>" + "<br>";
+            }
+            appendMessage(BOT_NAME, BOT_IMG, "left",finalMessage);
+            break;
+          }
+        }
+      });
+
+
+    }
+    function appendLinkMessage(name, img, side, text) {
+      //   Simple solution for small apps
+      
+
+      const msgHTML = `
+<div class="msg ${side}-msg">
+  <div class="msg-img" style="background-image: url(${img})"></div>
+
+  <div style="color:#056BA5; background-color:#F0F0F0;" class="msg-bubble">
+    <div class="msg-info">
+      <div class="msg-info-name">${name}</div>
+      
+    </div>
+
+    <div class="msg-text">${text}</div>
+
+  </div>
+</div>
+`;
+    
+    
+
+      msgerChat.insertAdjacentHTML("beforeend", msgHTML);
+      msgerChat.scrollTop += 500;
+    }
     
     
     function sendMessage(message)
@@ -137,6 +187,7 @@
       msgerChat.insertAdjacentHTML("beforeend", msgHTML);
       msgerChat.scrollTop += 500;
     }
+    
     /*function appendLinks(name, img, side, text) {
       //   Simple solution for small apps
       const msgHTML = `
