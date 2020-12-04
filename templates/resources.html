@@ -1,0 +1,134 @@
+<!-- Source: https://github.com/jessamynsmith/flask-google-sheets/blob/master/templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Admin Site</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/datatables.min.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/fixedColumns.dataTables.min.css') }}">
+
+    
+
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Connect@Cal General Form Responses</h1>
+
+        <table id="test" class="table table-striped table-bordered">
+            <thead>
+                <th></th>
+            {% for key, value in values.items() %}
+                <th>{{key}}</th>
+            {% endfor %}
+            </thead>
+            <tbody>
+                {% for i in range(values["Email Address"]|length) %}
+                    <tr>
+                        <td>
+                            <button class="write-email btn btn-primary btn-btnOnexs" id="btn {{loop.index}}"
+                                data-toggle="modal" data-target="#myModal{{ loop.index }}"><i
+                                    class="fa fa-edit"></i></button>
+                        </td>
+                        {% with outerloop = loop.index %}
+                        <div id="myModal{{ outerloop }}" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Write to {{email}}</h4>
+                                    </div>
+                                    <div class="response-container">
+                                        <form class="response-form">
+                                            <input type="hidden" name="email" value="{{values['Email Address'][i]}}" />
+                                            <div class="form-group">
+                                                <label for="agentResponse">Subject will always be: "Connect@Cal
+                                                    Response" and you will email as hello@connected.berkeley.edu</label>
+                                                <trix-editor input="agentResponse{{ outerloop }}-{{loop.index}}"></trix-editor>
+                                            </div>
+            
+                                            <!-- TODO: Add file upload later -->
+                                            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+            
+                            </div>
+                        </div>
+                        {% for key in values.keys() %}
+                            <td>{{ values[key][i] }}</td>
+                        {% endfor %}
+                        {% endwith %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+
+            <!-- {% for key, value in values.items() %}
+                <h1> Key: {{key}} </h1>
+                <h2> Value: {{value}}</h2>
+            {% endfor %} -->
+
+        </table>
+    </div>
+
+
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/datatables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/dataTables.fixedColumns.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/js.js') }}"></script>
+
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/trix.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/trix.js') }}"></script>
+
+    <script>
+        $(document).ready(function () {
+            var table = $('#test').removeAttr('width').DataTable({
+                scrollX: true,
+                scrollCollapse: true,
+                paging: false,
+                columnDefs: [
+                    { width: 800, targets: 6 },
+                    { width: 70, targets: 0 }
+                ],
+                fixedColumns: true
+            });
+            $(".response-container").on("submit", function (e) {
+                var hvalue = $(this).find('trix-editor').html();
+                var currentForm = $(this).find('.response-form');
+                var appendee = $(currentForm).append("<textarea name='agentResponse' style='display:none'>"+hvalue+"</textarea>");
+
+                var form = $(currentForm);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/send-mail",
+                    data: form.serialize(),
+                    success: function(data)
+                    {
+                        alert("Sent Email Successfully!");
+                        alert(data); 
+                    }
+                });
+
+                $(appendee).remove;
+            });
+        });
+    </script>
+    
+</body>
+
+</html>
